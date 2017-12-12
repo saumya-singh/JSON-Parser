@@ -1,4 +1,4 @@
-#JSON-Parser
+# JSON-Parser
 
 1. The python program is contained in the file "jsonParser.py".
  - It can simply be executed by the terminal.
