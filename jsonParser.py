@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import re, pprint
-    from sys import argv
+from sys import argv
 
 def nullParser(data):
     if data[0 : 4] == "null":
@@ -31,7 +31,8 @@ def stringParser(data):
         next_quote_index = data.index('"')
         while data[next_quote_index - 1] == '\\':
             next_quote_index += data[next_quote_index + 1 : ].index('"') + 1
-        return (data[ : next_quote_index], data[next_quote_index + 1 : ].strip())
+        return_string = data[ : next_quote_index].replace('\\\\', '\\')
+        return (return_string, data[next_quote_index + 1 : ].strip())
 
 
 def numberParser(data):
