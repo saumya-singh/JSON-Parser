@@ -81,33 +81,29 @@ def objectParser(data):
         parsed_dict = {}
         if data[0] == '}':
             return (parsed_dict, data[1 : ])
-        while len(data):
+
+        def spacesRemoved(data):
             result = spaceParser(data)
             if result:
                 data = result[1]
-            result = stringParser(data)
+            return data
+
+        while len(data):
+            result = stringParser(spacesRemoved(data))
             if not result:
                 return "not a valid parser"
             key = result[0]
             data = result[1]
-            result = spaceParser(data)
-            if result:
-                data = result[1]
-            result = colonParser(result[1])
+            result = colonParser(spacesRemoved(data))
             if not result:
                 return "not a valid parser"
             data = result[1]
-            result = spaceParser(data)
-            if result:
-                data = result[1]
-            result = valueParser(data)
+            result = valueParser(spacesRemoved(data))
             if not result:
                 return "not a valid parser"
             parsed_dict[key] = result[0]
             data = result[1]
-            result = spaceParser(data)
-            if result:
-                data = result[1]
+            data = spacesRemoved(data)
             if data[0] == '}':
                 return (parsed_dict, data[1 : ])
             result = commaParser(data)
