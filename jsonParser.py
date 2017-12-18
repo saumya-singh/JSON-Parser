@@ -131,6 +131,10 @@ def main():
     file_name = argv[1]
     with open(file_name, "r") as file_obj:
         data = file_obj.read()
+    if len(data) == 0:
+        print("Empty File")
+        return
+        
     result = spaceParser(data)
     if result:
         starting_spaces = result[0]
